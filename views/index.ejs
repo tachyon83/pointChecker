@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Point Checker</title>
+    <script>
+        window.onload = () => {
+            let btnNext = document.getElementById('btnNext')
+            let btnResult = document.createElement('button')
+            btnResult.innerText = '결과보기'
+            let btnReset = document.getElementById('btnReset')
+
+            let divSectionInput = document.getElementById('sectionInput')
+            let divResult = document.getElementById('result')//reset
+
+            let tdNumberOfSections = document.getElementById('numberOfSections')
+            let tdFullMark = document.getElementById('fullMark')
+
+            let itr = 0
+            let fullMark = 0
+            let posScores = new Set()//reset
+            let arrAll = []//reset
+
+            const solve = (idx, score, i) => {
+                if (i == itr) {
+                    posScores.add(score)
+                    return
+                }
+                for (let e of arrAll[idx]) solve(idx + 1, score + e, i + 1)
+            }
+
+            btnNext.addEventListener('click', e => {
+                divSectionInput.style.display = 'block'
+                itr = parseInt(tdNumberOfSections.value)
+                fullMark = parseInt(tdFullMark.value)
+                for (let i = 0; i < itr; ++i) {
+                    divSectionInput.appendChild(document.createElement('input'))
+                    divSectionInput.appendChild(document.createElement('br'))
+                }
+                divSectionInput.appendChild(btnResult)
+            })
+            btnResult.addEventListener('click', e => {
+                divResult.style.display = 'block'//reset
+                let tempArr = divSectionInput.childNodes
+                for (let i = 0; i < tempArr.length - 1; i += 2) {
+                    let arr = (tempArr[i].value).split(' ')
+                    for (let i = 0; i < arr.length; ++i)arr[i] = parseInt(arr[i])
+                    arrAll.push(arr)
+                }
+                solve(0, 0, 0)
+                let resultStr = ''
+                let setIter = posScores.values()
+                for (let i = 0; i <= fullMark; ++i)if (!posScores.has(i)) resultStr += i + ' '
+                divResult.innerText = resultStr
+            })
+            btnReset.addEventListener('click', e => {
+                tdNumberOfSections.value = ''
+                tdFullMark.value = ''
+                divResult.style.display = 'none'
+                divSectionInput.style.display = 'none'
+                posScores.clear()
+                divResult.innerText = ''
+                arrAll = []
+                divResult.style.display = 'none'
+                divSectionInput.innerHTML = ''
+            })
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>Point Checker</h1>
+    <hr>
+    <div>
+        <table width="100%" border="1" style="border-collapse: collapse;">
+            <tr>
+                <th>항목 수</th>
+                <th>총점</th>
+            </tr>
+            <tr>
+                <td><input id='numberOfSections'></td>
+                <td><input id='fullMark'></td>
+            </tr>
+        </table>
+        <button id='btnNext'>다음</button>
+        <button id='btnReset'>처음부터</button>
+    </div>
+    <div style='display:none' id='sectionInput'></div>
+    <div style='font-weight:bold; font:20px solid; display:none;' id='result'></div>
+</body>
+
+</html>
