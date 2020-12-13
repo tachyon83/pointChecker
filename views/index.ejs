@@ -44,7 +44,7 @@
             btnResult.addEventListener('click', e => {
                 divResult.style.display = 'block'//reset
                 let tempArr = divSectionInput.childNodes
-                let arrAll = []
+                arrAll = []
                 for (let i = 0; i < tempArr.length - 1; i += 2) {
                     let arr = (tempArr[i].value).split(' ')
                     for (let i = 0; i < arr.length; ++i)arr[i] = parseInt(arr[i])
