@@ -1,0 +1,18 @@
+input {
+    height: 40px;
+    font-size: 40px;
+    line-height: 40px;
+    text-align: center;
+}
+
+div#result {
+    color: red;
+    font-weight: bold;
+    font: 50px solid;
+    display: none;
+}
+
+table {
+    border: 1;
+    border-collapse: collapse;
+}

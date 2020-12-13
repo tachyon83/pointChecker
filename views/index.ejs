@@ -5,12 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Point Checker</title>
+    <link rel="stylesheet" href="/css/main.css">
     <script>
         window.onload = () => {
             let btnNext = document.getElementById('btnNext')
             let btnResult = document.createElement('button')
             btnResult.innerText = '결과보기'
             let btnReset = document.getElementById('btnReset')
+            let successMsg = '성공'
 
             let divSectionInput = document.getElementById('sectionInput')
             let divResult = document.getElementById('result')//reset
@@ -43,6 +45,7 @@
             })
             btnResult.addEventListener('click', e => {
                 divResult.style.display = 'block'//reset
+                divResult.style.color = 'red'
                 let tempArr = divSectionInput.childNodes
                 arrAll = []
                 for (let i = 0; i < tempArr.length - 1; i += 2) {
@@ -54,9 +57,14 @@
                 solve(0, 0, 0)
                 let resultStr = ''
                 for (let i = 0; i <= fullMark; ++i)if (!posScores.has(i)) resultStr += i + ' '
+                if (resultStr === '') {
+                    divResult.style.color = 'blue'
+                    resultStr = successMsg
+                }
                 divResult.innerText = resultStr
             })
             btnReset.addEventListener('click', e => {
+                divResult.style.color = 'red'
                 tdNumberOfSections.value = ''
                 tdFullMark.value = ''
                 divResult.style.display = 'none'
@@ -68,7 +76,6 @@
                 divSectionInput.innerHTML = ''
             })
         }
-
     </script>
 </head>
 
@@ -76,7 +83,7 @@
     <h1>Point Checker</h1>
     <hr>
     <div>
-        <table width="100%" border="1" style="border-collapse: collapse;">
+        <table>
             <tr>
                 <th>항목 수</th>
                 <th>총점</th>
@@ -90,7 +97,7 @@
         <button id='btnReset'>처음부터</button>
     </div>
     <div style='display:none' id='sectionInput'></div>
-    <div style='color:red; font-weight:bold; font:20px solid; display:none;' id='result'></div>
+    <div id='result'></div>
 </body>
 
 </html>
