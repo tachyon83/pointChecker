@@ -38,7 +38,11 @@
                 itr = parseInt(tdNumberOfSections.value)
                 fullMark = parseInt(tdFullMark.value)
                 for (let i = 0; i < itr; ++i) {
-                    divSectionInput.appendChild(document.createElement('input'))
+                    let currDom = document.createElement('input')
+                    currDom.setAttribute('placeholder', i + 1)
+                    currDom.setAttribute('class', 'assignableScoresPerItem')
+                    // if (!(i % 2)) currDom.style.backgroundColor = 'gainsboro'
+                    divSectionInput.appendChild(currDom)
                     divSectionInput.appendChild(document.createElement('br'))
                 }
                 divSectionInput.appendChild(btnResult)

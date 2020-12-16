@@ -16,3 +16,18 @@ table {
     border: 1;
     border-collapse: collapse;
 }
+input.assignableScoresPerItem{
+    border: 1px solid black;
+    border-collapse:collapse;
+}
+
+input.assignableScoresPerItem:nth-of-type(odd) {
+    background-color: gainsboro;
+}
+
+input.assignableScoresPerItem::placeholder {
+    color:lightgray;
+    height:20px;
+    font-size: 20px;
+    line-height: 20px;
+}
